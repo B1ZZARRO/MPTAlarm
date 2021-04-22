@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MPT Alarm</string>
+    <string name="title_activity_maps">Map</string>
+    <string-array name="dep">
+        <item>09.02.07</item>
+        <item>09.02.01</item>
+    </string-array>
+</resources>
