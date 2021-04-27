@@ -5,4 +5,8 @@
         <item>09.02.07</item>
         <item>09.02.01</item>
     </string-array>
+    <string-array name="group">
+        <item>П50-2-18</item>
+        <item>Т50-1-18</item>
+    </string-array>
 </resources>

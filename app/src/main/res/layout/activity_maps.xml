@@ -7,14 +7,26 @@
     tools:context=".MapsActivity">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sp_dep"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:entries="@array/dep"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="120dp"/>
+
+    <Spinner
+        android:id="@+id/sp_group"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/group"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/sp_dep"
+        android:layout_marginTop="50dp"/>
 
     <fragment
         android:id="@+id/map"
