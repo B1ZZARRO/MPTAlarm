@@ -1,14 +1,13 @@
 package com.example.mptalarm.fragments
 
-import android.location.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.mptalarm.R
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.GoogleMap
+import kotlinx.android.synthetic.main.fragment_timer.*
+
 
 class TimerFragment : Fragment() {
 
@@ -18,5 +17,10 @@ class TimerFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_timer, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tp_dialog.setIs24HourView(true)
     }
 }

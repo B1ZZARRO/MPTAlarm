@@ -1,21 +1,20 @@
 package com.example.mptalarm
 
-import android.location.Location
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mptalarm.fragments.HomeFragment
 import com.example.mptalarm.fragments.MapFragment
 import com.example.mptalarm.fragments.TimerFragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_maps.*
+import kotlinx.android.synthetic.main.fragment_map.*
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 class MapsActivity : AppCompatActivity() {
+
+    //var doc: Document = Jsoup.connect("https://mpt.ru/studentu/raspisanie-zanyatiy/").get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
