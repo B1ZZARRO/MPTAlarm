@@ -2,11 +2,100 @@
     <string name="app_name">MPT Alarm</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="dep">
-        <item>09.02.07</item>
         <item>09.02.01</item>
+        <item>09.02.06</item>
+        <item>09.02.07</item>
+        <item>10.02.05</item>
+        <item>40.02.01</item>
+        <item>Отделение первого курса</item>
     </string-array>
-    <string-array name="group">
+    <string-array name="group921">
+        <item>Э-1-18</item>
+        <item>Э-1-19,Э-11/1-20</item>
+        <item>Э-2-18,Э-11-19</item>
+        <item>Э-2-19,Э-11/2-20</item>
+    </string-array>
+    <string-array name="group926">
+        <item>СА50-1-18</item>
+        <item>СА50-1-19, СА50-11/1-20</item>
+        <item>СА50-2-18</item>
+        <item>СА50-2-19</item>
+        <item>СА50-3-18, СА50-11-19</item>
+        <item>СА50-3-19</item>
+        <item>СА50-4-19</item>
+        <item>СА50-5-19, СА50-11/5-20</item>
+    </string-array>
+    <string-array name="group927">
+        <item>БД50-1-18</item>
+        <item>БД50-1-19, БД50-11/1-20</item>
+        <item>ВД50-1-18</item>
+        <item>ВД50-1-19, ВД50-11/1-20</item>
+        <item>ВД50-2-18, ВД50-11-19</item>
+        <item>ВД50-2-19, ВД50-11/2-20</item>
+        <item>ВД50-3-18</item>
+        <item>ВД50-3-19, ВД50-11/3-20</item>
+        <item>ВД50-4-18</item>
+        <item>ВД50-5-18</item>
+        <item>ИС50-1-18</item>
+        <item>ИС50-1-19</item>
+        <item>ИС50-11-19</item>
+        <item>ИС50-2-18</item>
+        <item>ИС50-2-19</item>
+        <item>ИС50-3-19, ИС50-11/3-20</item>
+        <item>П50-1-18</item>
+        <item>П50-1-19, П50-11/1-20</item>
         <item>П50-2-18</item>
+        <item>П50-2-19</item>
+        <item>П50-3-18</item>
+        <item>П50-3-19, П50-11/3-20</item>
+        <item>П50-4-18</item>
+        <item>П50-4-19, П50-11/4-20</item>
+        <item>П50-5-18</item>
+        <item>П50-5-19, П50-11/5-20</item>
+        <item>П50-6-18</item>
+        <item>П50-6-19, П50-11/6-20</item>
+        <item>П50-7-18</item>
         <item>Т50-1-18</item>
+        <item>Т50-1-19</item>
+        <item></item>
+    </string-array>
+    <string-array name="group1025">
+        <item>БИ50-1-18</item>
+        <item>БИ50-1-19, БИ50-11/1-20</item>
+        <item>БИ50-2-18, БИ50-11-19</item>
+        <item>БИ50-2-19, БИ50-11/2-20</item>
+        <item>БИ50-3-19, БИ50-11/3-20</item>
+    </string-array>
+    <string-array name="group4021">
+        <item>Ю-1-19</item>
+        <item>Ю-1-20</item>
+        <item>Ю-11-20</item>
+        <item>Ю-2-20</item>
+    </string-array>
+    <string-array name="groupOtd">
+        <item>БИ50-1-20</item>
+        <item>БИ50-2-20</item>
+        <item>БИ50-3-20</item>
+        <item>ИсиП-1-20</item>
+        <item>ИсиП-10-20</item>
+        <item>ИсиП-11-20</item>
+        <item>ИсиП-12-20</item>
+        <item>ИсиП-13-20</item>
+        <item>ИсиП-14-20</item>
+        <item>ИсиП-15-20</item>
+        <item>ИсиП-16-20</item>
+        <item>ИсиП-2-20</item>
+        <item>ИсиП-3-20</item>
+        <item>ИсиП-4-20</item>
+        <item>ИсиП-5-20</item>
+        <item>ИсиП-6-20</item>
+        <item>ИсиП-7-20</item>
+        <item>ИсиП-8-20</item>
+        <item>ИсиП-9-20</item>
+        <item>СА50-1-20</item>
+        <item>СА50-2-20</item>
+        <item>СА50-3-20</item>
+        <item>Э-1-20</item>
+        <item>Э-2-20</item>
     </string-array>
 </resources>
