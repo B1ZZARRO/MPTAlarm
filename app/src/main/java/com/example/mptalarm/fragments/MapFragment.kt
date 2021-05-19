@@ -41,11 +41,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var permissionCode = 101
     var location : LatLng? = null
-    lateinit var lat1 : String
-    lateinit var lng1 : String
+    var lat1 : String = ""
+    var lng1 : String = ""
     val nezh = "55.71237800579656, 37.47664034961596"
     val nezh1 = LatLng(55.71237800579656, 37.47664034961596)
-    lateinit var yourloc : String
+    var yourloc : String = ""
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,19 +56,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadData()
+        //response()
+        val mapFragment = childFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment?.getMapAsync(this)
         btn_address.setOnClickListener {
+            response()
             saveData()
         }
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment?.getMapAsync(this)
-        yourloc = "${lat1}, ${lng1}"
+    }
+
+    private fun response() {
         val builder = Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com")
-            .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://maps.googleapis.com")
+                .addConverterFactory(GsonConverterFactory.create())
         val retrofit = builder.build()
         val apiInterface : APIInterface = retrofit.create<APIInterface>(APIInterface::class.java)
-        val call : retrofit2.Call<UrlModel> = apiInterface.getRoute(yourloc.toString(),nezh.toString(),true)
+        val call : retrofit2.Call<UrlModel> = apiInterface.getRoute(yourloc,nezh,true, "transit")
         call.enqueue(object : Callback<UrlModel> {
             override fun onFailure(call: retrofit2.Call<UrlModel>, t: Throwable) {
                 Log.i("qwer", t.message.toString())
@@ -79,8 +83,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         })
     }
-
-
 
     private fun saveData() {
         val mainActivity = this.activity as MapsActivity
@@ -109,8 +111,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             location = LatLng(lat1.toString().toDouble(), lng1.toString().toDouble())
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
             mMap.addMarker(MarkerOptions().position(location!!))
-            lat1 = location!!.latitude.toString()
-            lng1 = location!!.longitude.toString()
+            //lat1 = location!!.latitude.toString()
+            //lng1 = location!!.longitude.toString()
+
         } else {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nezh1, 15f))
         }
@@ -124,6 +127,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 mMap.addMarker(MarkerOptions().position(location!!))
                 lat1 = location!!.latitude.toString()
                 lng1 = location!!.longitude.toString()
+                yourloc = "${lat1}, ${lng1}"
             }
         })
     }

@@ -19,6 +19,7 @@ interface APIInterface {
             @Query("origin") startlocation: String,
             @Query("destination") endlocation: String,
             @Query("sensor") sensor: Boolean,
+            @Query("mode") mode: String,
             @Query("key") key: String = key1
     ): Call<UrlModel>
 
