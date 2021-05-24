@@ -60,6 +60,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment?.getMapAsync(this)
+        //response()
         btn_address.setOnClickListener {
             response()
             saveData()
