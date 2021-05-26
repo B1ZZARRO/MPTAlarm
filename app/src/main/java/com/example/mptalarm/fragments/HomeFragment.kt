@@ -1,5 +1,6 @@
 package com.example.mptalarm.fragments
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.mptalarm.PostTask
 import com.example.mptalarm.R
+import com.example.mptalarm.SettingsActivity
 import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jsoup.Jsoup
@@ -25,11 +27,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         PostTask()
         btn_onoff.setOnClickListener {
             //val html = ("это пока нужно для тестирования парсинга")
             //val doc = Jsoup.parse(html)
             //txt_schedule.text = doc.html()
+        }
+        btn_settings.setOnClickListener {
+            startActivity(Intent(context,SettingsActivity::class.java))
         }
     }
 }
