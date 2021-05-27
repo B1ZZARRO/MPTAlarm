@@ -1,24 +1,22 @@
 package com.example.mptalarm.fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import com.example.mptalarm.PostTask
 import com.example.mptalarm.R
 import com.example.mptalarm.SettingsActivity
-import com.google.android.gms.maps.SupportMapFragment
+import com.example.mptalarm.service.AlarmService
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
+import java.util.*
 
 class HomeFragment : Fragment() {
+
+    lateinit var  alarmService: AlarmService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -28,23 +26,42 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        PostTask()
+        alarmService = AlarmService(context!!)
+
         btn_onoff.setOnClickListener {
-            //val html = ("это пока нужно для тестирования парсинга")
-            //val doc = Jsoup.parse(html)
-            //txt_schedule.text = doc.html()
+            setAlarm {timeInMillis -> alarmService.setExactAlarm(timeInMillis)}
         }
+
         btn_settings.setOnClickListener {
             startActivity(Intent(context,SettingsActivity::class.java))
         }
     }
-}
 
-@Suppress("DEPRECATION")
-class PostTask() : AsyncTask<String, Int, Document>() {
-    override fun doInBackground(vararg p0: String?): Document {
-        val doc: Document = Jsoup.connect("https://mpt.ru/studentu/raspisanie-zanyatiy/").get()
-        Log.i("TAG", doc.toString())
-        return doc
+    private  fun setAlarm(callback: (Long) -> Unit) {
+        Calendar.getInstance().apply {
+            DatePickerDialog(
+                    context!!,
+                    0,
+                    { _, year, month, day ->
+                        this.set(Calendar.YEAR, year)
+                        this.set(Calendar.MONTH, month)
+                        this.set(Calendar.DAY_OF_MONTH, day)
+                        TimePickerDialog(
+                                context!!,
+                                0,
+                                { _, hour, min, ->
+                                    this.set(Calendar.HOUR_OF_DAY, hour)
+                                    this.set(Calendar.MINUTE, min)
+                                },
+                                this.get(Calendar.HOUR_OF_DAY),
+                                this.get(Calendar.MINUTE),
+                                false
+                        ).show()
+                    },
+                    this.get(Calendar.YEAR),
+                    this.get(Calendar.MONTH),
+                    this.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
     }
 }

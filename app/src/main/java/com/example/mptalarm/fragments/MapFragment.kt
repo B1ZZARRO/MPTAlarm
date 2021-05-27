@@ -43,6 +43,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     var location : LatLng? = null
     var lat1 : String = ""
     var lng1 : String = ""
+    var duration : String = ""
     val nezh = "55.71237800579656, 37.47664034961596"
     val nezh1 = LatLng(55.71237800579656, 37.47664034961596)
     var yourloc : String = ""
@@ -56,11 +57,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadData()
-        //response()
         val mapFragment = childFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment?.getMapAsync(this)
-        //response()
         btn_address.setOnClickListener {
             response()
             saveData()
@@ -80,7 +79,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
             override fun onResponse(call: Call<UrlModel>, response: Response<UrlModel>) {
                 val statusResponse = response.body()!!
-                edt_address.text = statusResponse.routes[0]!!.legs[0]!!.duration!!.text!!.toString()
+                duration = statusResponse.routes[0]!!.legs[0]!!.duration!!.text!!.toString()
+                txt_address.text = duration
             }
         })
     }
@@ -89,11 +89,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mainActivity = this.activity as MapsActivity
         val insertedText = lat1
         val insertedText1 = lng1
+        val insertedText2 = duration
         val sharedPreferences = mainActivity.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.apply {
             putString("string_KEY", insertedText.toString())
             putString("string1_KEY", insertedText1.toString())
+            putString("string2_KEY", insertedText2.toString())
         }.apply()
     }
 
@@ -102,8 +104,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val sharedPreferences = mainActivity.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val savedString = sharedPreferences.getString("string_KEY", null)
         val savedString1 = sharedPreferences.getString("string1_KEY", null)
+        val savedString2 = sharedPreferences.getString("string2_KEY", null)
         lat1 = savedString!!
         lng1 = savedString1!!
+        duration = savedString2!!
+        txt_address.text = duration
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

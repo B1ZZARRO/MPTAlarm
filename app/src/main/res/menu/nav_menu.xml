@@ -6,12 +6,7 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Главная"/>
     <item
-        android:id="@+id/ic_timer"
-        android:icon="@drawable/ic_baseline_timer_24"
-        android:title="Настройки"/>
-    <item
         android:id="@+id/ic_map"
         android:icon="@drawable/ic_baseline_add_location_24"
         android:title="Адрес"/>
-
 </menu>
