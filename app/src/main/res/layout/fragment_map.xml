@@ -29,6 +29,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/map"/>
 
+                <TextView
+                    android:id="@+id/txt_address1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_address" />
+
                 <Button
                     android:id="@+id/btn_address"
                     android:layout_width="wrap_content"

@@ -43,8 +43,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     var location : LatLng? = null
     var lat1 : String = ""
     var lng1 : String = ""
-    var duration : String = ""
+    var durationNezh : String = ""
+    var durationNah : String = ""
+    var qwert : String = ""
     val nezh = "55.71237800579656, 37.47664034961596"
+    val nah = "55.66502751738058, 37.597936146381635"
     val nezh1 = LatLng(55.71237800579656, 37.47664034961596)
     var yourloc : String = ""
 
@@ -61,41 +64,47 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment?.getMapAsync(this)
         btn_address.setOnClickListener {
-            response()
+            durationNah = response(nah)
+            durationNezh = response(nezh)
+            txt_address.text = durationNah
+            txt_address1.text = durationNezh
             saveData()
         }
     }
 
-    private fun response() {
+    private fun response(sharaga : String) : String {
         val builder = Retrofit.Builder()
                 .baseUrl("https://maps.googleapis.com")
                 .addConverterFactory(GsonConverterFactory.create())
         val retrofit = builder.build()
         val apiInterface : APIInterface = retrofit.create<APIInterface>(APIInterface::class.java)
-        val call : retrofit2.Call<UrlModel> = apiInterface.getRoute(yourloc,nezh,true, "transit")
+        val call : retrofit2.Call<UrlModel> = apiInterface.getRoute(yourloc,sharaga,true, "transit")
         call.enqueue(object : Callback<UrlModel> {
             override fun onFailure(call: retrofit2.Call<UrlModel>, t: Throwable) {
                 Log.i("qwer", t.message.toString())
             }
             override fun onResponse(call: Call<UrlModel>, response: Response<UrlModel>) {
                 val statusResponse = response.body()!!
-                duration = statusResponse.routes[0]!!.legs[0]!!.duration!!.text!!.toString()
-                txt_address.text = duration
+
+                qwert = statusResponse.routes[0]!!.legs[0]!!.duration!!.text!!.toString()
             }
         })
+        return qwert
     }
 
     private fun saveData() {
         val mainActivity = this.activity as MapsActivity
         val insertedText = lat1
         val insertedText1 = lng1
-        val insertedText2 = duration
+        val insertedText2 = durationNezh
+        val insertedText3 = durationNah
         val sharedPreferences = mainActivity.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.apply {
             putString("string_KEY", insertedText.toString())
             putString("string1_KEY", insertedText1.toString())
             putString("string2_KEY", insertedText2.toString())
+            putString("string3_KEY", insertedText3.toString())
         }.apply()
     }
 
@@ -105,10 +114,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val savedString = sharedPreferences.getString("string_KEY", null)
         val savedString1 = sharedPreferences.getString("string1_KEY", null)
         val savedString2 = sharedPreferences.getString("string2_KEY", null)
+        val savedString3 = sharedPreferences.getString("string3_KEY", null)
         lat1 = savedString!!
         lng1 = savedString1!!
-        duration = savedString2!!
-        txt_address.text = duration
+        durationNezh = savedString2!!
+        durationNah = savedString3!!
+        txt_address.text = durationNezh
+        txt_address.text = durationNah
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
