@@ -7,31 +7,36 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.view.size
-import com.example.mptalarm.fragments.HomeFragment
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
 
     var dep1 : Int = -1
     var group1 : Int = -1
+    var groupStr : String = ""
+    var time : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-
         loadData()
-        txt_pn.text = dep1.toString()
-        txt_vt.text = group1.toString()
+        val cal = Calendar.getInstance()
+        tp_dialog.setOnTimeChangedListener { view, hourOfDay, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            cal.set(Calendar.MINUTE, minute)
+            time = SimpleDateFormat("HH:mm").format(cal.time)
+        }
         SpinnerFill()
         sp_group1.setSelection(group1)
-        //SpinnerChanged()
         tp_dialog.setIs24HourView(true)
 
-        btn_settings.setOnClickListener {
+        btn_save.setOnClickListener {
             dep1 = sp_dep1.selectedItemPosition
             group1 = sp_group1.selectedItemPosition
+            groupStr = sp_group1.selectedItem.toString()
+            time = SimpleDateFormat("HH:mm").format(cal.time)
             saveData()
             startActivity(Intent(this,MapsActivity::class.java))
         }
@@ -40,11 +45,15 @@ class SettingsActivity : AppCompatActivity() {
     private fun saveData() {
         val insertedText = dep1
         val insertedText1 = group1
+        val insertedText2 = groupStr
+        val insertedText3 = time
         val sharedPreferences = getSharedPreferences("sharedPrefs1", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.apply {
             putInt("string0_KEY", insertedText)
             putInt("string10_KEY", insertedText1)
+            putString("string20_KEY", insertedText2)
+            putString("string30_KEY", insertedText3)
         }.apply()
     }
 
@@ -55,20 +64,6 @@ class SettingsActivity : AppCompatActivity() {
         dep1 = savedInt
         group1 = savedInt1
     }
-
-    /*private  fun loadData1() {
-        val mainActivity = this.activity as MapsActivity
-        val sharedPreferences = mainActivity.getSharedPreferences("sharedPrefs1", Context.MODE_PRIVATE)
-        //val savedInt = sharedPreferences.getInt("string0_KEY", -1)
-        val savedInt1 = sharedPreferences.getInt("string10_KEY", -1)
-        //dep1 = savedInt
-        group1 = savedInt1
-    }*/
-
-    /*override fun onViewCreated(view: View , savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }*/
 
     fun SpinnerChanged() {
         sp_dep1.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
@@ -106,17 +101,6 @@ class SettingsActivity : AppCompatActivity() {
             }
             override fun onNothingSelected(adapterView: AdapterView<*>?) { }
         })
-        /*val mainActivity = this.activity as MapsActivity
-        val adapter: ArrayAdapter<*> = ArrayAdapter.createFromResource(mainActivity, R.array.dep, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sp_dep1.setAdapter(adapter)
-        val adapter1: ArrayAdapter<*> = ArrayAdapter.createFromResource(mainActivity, R.array.group921, android.R.layout.simple_spinner_item)
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sp_group1.setAdapter(adapter1)
-        sp_dep1.setSelection(2)
-        sp_group1.setSelection(2)*/
-        //txt_pn.text = sp_dep1.selectedItemPosition.toString()
-        //txt_vt.text = sp_group1.selectedItemPosition.toString()
     }
 
     fun SpinnerFill() {
@@ -155,7 +139,6 @@ class SettingsActivity : AppCompatActivity() {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 sp_group1.setAdapter(adapter)
             }
-
         }
         else {
             val adapter: ArrayAdapter<*> = ArrayAdapter.createFromResource(this, R.array.dep, android.R.layout.simple_spinner_item)

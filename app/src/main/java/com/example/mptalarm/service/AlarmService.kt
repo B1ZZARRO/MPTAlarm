@@ -18,8 +18,7 @@ class AlarmService(private val context: Context) {
     private  val seed = AtomicInteger()
     fun getRandomInt() = seed.getAndIncrement() + System.currentTimeMillis().toInt()
 
-    private val alarmManager: AlarmManager? =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
+    private val alarmManager: AlarmManager? = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
     fun setExactAlarm(timeInMilles: Long) {
         setAlarm(
@@ -33,7 +32,6 @@ class AlarmService(private val context: Context) {
         )
     }
 
-    //каждая неделя
     fun setRepetitiveAlarm(timeInMilles: Long) {
         setAlarm(
                 timeInMilles,
